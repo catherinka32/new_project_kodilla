@@ -1,17 +1,15 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
-
+@CrossOrigin(origins ="*")
 @RestController
     @RequestMapping("/v1/task")
     public class TaskController {
@@ -25,8 +23,8 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
             return taskMapper.mapToTaskDtoList(service.getAllTasks());
         }
         @RequestMapping(method = RequestMethod.GET, value = "getTask")
-        public TaskDto getTask(@RequestParam Long id) throws TaskNotFoundException {
-            return taskMapper.mapToTaskDto(service.getTaskWithId(id).orElseThrow(TaskNotFoundException::new));
+        public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
+            return taskMapper.mapToTaskDto(service.getTaskWithId(taskId).orElseThrow(TaskNotFoundException::new));
         }
         @RequestMapping(method = RequestMethod.POST, value = "createTask",consumes = APPLICATION_JSON_VALUE)
         public void createTask(@RequestBody TaskDto taskDto){
@@ -37,8 +35,8 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
             return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
         }
         @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-        public void deleteTask(@RequestParam Long id)throws TaskNotFoundException {
-           service.deleteTaskWithId(id);
+        public void deleteTask(@RequestParam Long taskId)throws TaskNotFoundException {
+           service.deleteTaskWithId(taskId);
         }
 
 //        return new ArrayList<>();
