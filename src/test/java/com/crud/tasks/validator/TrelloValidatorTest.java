@@ -26,9 +26,11 @@ public class TrelloValidatorTest {
     public void testValidateCard(){
         //Given
         TrelloValidator trelloValidator = new TrelloValidator();
-        TrelloCard trelloCard = new TrelloCard( "List test", "testing lists", "top", "6");
+        TrelloCard trelloCard = new TrelloCard( "test", "testing lists", "top", "6");
+        //When
+        boolean isProperUser = trelloValidator.validateCard(trelloCard);
         //Then
-        trelloValidator.validateCard(trelloCard);
+        assertEquals(false, isProperUser);
 
     }
     @Test

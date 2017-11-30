@@ -23,13 +23,14 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
             return taskMapper.mapToTaskDtoList(service.getAllTasks());
         }
         @RequestMapping(method = RequestMethod.GET, value = "getTask")
-        public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
+        public TaskDto getTask(@RequestParam  Long taskId) throws TaskNotFoundException {
             return taskMapper.mapToTaskDto(service.getTaskWithId(taskId).orElseThrow(TaskNotFoundException::new));
         }
         @RequestMapping(method = RequestMethod.POST, value = "createTask",consumes = APPLICATION_JSON_VALUE)
         public void createTask(@RequestBody TaskDto taskDto){
             service.saveTask(taskMapper.mapToTask(taskDto));
         }
+
         @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
         public TaskDto updateTask(@RequestBody TaskDto taskDto){
             return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
@@ -38,22 +39,4 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
         public void deleteTask(@RequestParam Long taskId)throws TaskNotFoundException {
            service.deleteTaskWithId(taskId);
         }
-
-//        return new ArrayList<>();
-//    }
-//    @RequestMapping(method = RequestMethod.GET,value = "getTask")
-//    public TaskDto getTask(String taskId){
-//        return new TaskDto((long)1, "test title", "test content");
-//    }
-//    @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-//    public void deleteTask(String taskId){
-//
-//    }
-//    @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
-//    public TaskDto updateTask(String taskId){
-//           return new TaskDto((long)1, "Edited test title", "Test content");
-//    }
-//    @RequestMapping(method =  RequestMethod.POST, value = "createTask")
-//    public void createTask(TaskDto taskDto){
-//    }
 }
