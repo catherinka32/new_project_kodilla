@@ -65,7 +65,7 @@ public class TaskControllerTest {
         Task task1 = new Task(1L, "Homework", "Ex 21.2");
         tasks.add(task1);
         TaskDto taskDto = new TaskDto(task1.getId(), task1.getTitle(), task1.getContent());
-        when(service.getTaskWithId(1L)).thenReturn(Optional.ofNullable(task1));
+        when(service.getTask(1L)).thenReturn(Optional.ofNullable(task1));
         when(taskMapper.mapToTaskDto(task1)).thenReturn(taskDto);
         //When&Then
         mockMvc.perform(get("/v1/task/getTask")

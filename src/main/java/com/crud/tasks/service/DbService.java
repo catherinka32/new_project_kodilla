@@ -16,13 +16,13 @@ public class DbService {
     public List<Task> getAllTasks(){
       return repository.findAll();
     }
-    public Optional<Task> getTaskWithId(final Long id) {
+    public Optional<Task> getTask(final Long id) {
         return repository.findById(id);
     }
     public Task saveTask(final Task task){
         return repository.save(task);
     }
-    public void deleteTaskWithId(final Long id){
+    public void deleteById(final Long id){
         repository.deleteById(id);
     }
 }
