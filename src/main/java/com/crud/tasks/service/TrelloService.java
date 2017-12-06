@@ -21,13 +21,16 @@ public class TrelloService {
     private TrelloClient trelloClient;
     @Autowired
     private SimpleEmailService emailService;
+
     private static final String SUBJECT = "Tasks: New Trello card";
 
     public List<TrelloBoardDto> fetchTrelloBoards(){
         return trelloClient.getTrelloBoards();
     }
+
     public CreatedTrelloCardDto createTrelloCard(final TrelloCardDto trelloCardDto){
-        CreatedTrelloCardDto newCard=trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
+
      ofNullable(newCard).ifPresent(card->emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT, "New card: "+ card.getName() + " has been created on your Trello account")));
         return newCard;
     }

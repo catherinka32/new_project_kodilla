@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins ="*")
 @RestController
     @RequestMapping("/v1/task")
     public class TaskController {
@@ -22,6 +22,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
         public List<TaskDto> getTasks(){
             return taskMapper.mapToTaskDtoList(service.getAllTasks());
         }
+
         @RequestMapping(method = RequestMethod.GET, value = "getTask")
         public TaskDto getTask(@RequestParam  Long taskId) throws TaskNotFoundException {
             return taskMapper.mapToTaskDto(service.getTaskWithId(taskId).orElseThrow(TaskNotFoundException::new));
