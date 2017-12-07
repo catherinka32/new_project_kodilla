@@ -27,12 +27,12 @@ public class TrelloFacade {
 
     public List<TrelloBoardDto> fetchTrelloBoards(){
         List<TrelloBoard> trelloBoards = trelloMapper.mapToBoards(trelloService.fetchTrelloBoards());
-//        List<TrelloBoard> filteredBoards = trelloValidator.validateTrelloBoard(trelloBoards);
+        List<TrelloBoard> filteredBoards = trelloValidator.validateTrelloBoard(trelloBoards);
        return trelloMapper.mapToBoardsDto(trelloBoards);
     }
     public CreatedTrelloCardDto createCard(final TrelloCardDto trelloCardDto){
         TrelloCard trelloCard = trelloMapper.mapToCard(trelloCardDto);
-//        trelloValidator.validateCard(trelloCard);
+        trelloValidator.validateCard(trelloCard);
         return trelloService.createTrelloCard(trelloMapper.mapToCardDto(trelloCard));
     }
 }
