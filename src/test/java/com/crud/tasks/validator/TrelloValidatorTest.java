@@ -38,7 +38,7 @@ public class TrelloValidatorTest {
         //Given
         TrelloValidator trelloValidator = new TrelloValidator();
         List<TrelloBoard> trelloBoards = new ArrayList<>();
-        trelloBoards.add(new TrelloBoard("5", "test", new ArrayList<>()));
+        trelloBoards.add(new TrelloBoard("5", "anything", new ArrayList<>()));
         //When
         List<TrelloBoard> resultBoard = trelloValidator.validateTrelloBoard(trelloBoards);
         //Then
