@@ -22,7 +22,7 @@ public class SimpleEmailService {
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation..");
         try {
-            javaMailSender.send(createMailMessage(mail));
+            javaMailSender.send(createMimeMessage(mail));
             LOGGER.info("Email has been sent.");
         } catch (Exception e) {
             LOGGER.info("Failed to process email sending: " + e.getMessage(), e);
@@ -37,12 +37,12 @@ public class SimpleEmailService {
         };
     }
 
-    public SimpleMailMessage createMailMessage(final Mail mail) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
-//        mailMessage.setCc((mail.getToCc() != null) ? mail.getToCc() : "");
-        return mailMessage;
-    }
+//    public SimpleMailMessage createMailMessage(final Mail mail) {
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
+//        mailMessage.setTo(mail.getMailTo());
+//        mailMessage.setSubject(mail.getSubject());
+//        mailMessage.setText(mail.getMessage());
+////        mailMessage.setCc((mail.getToCc() != null) ? mail.getToCc() : "");
+//        return mailMessage;
+//    }
 }
