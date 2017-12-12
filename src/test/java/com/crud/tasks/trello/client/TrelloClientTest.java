@@ -4,6 +4,7 @@ import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,22 +81,16 @@ public class TrelloClientTest {
         assertEquals("http://test.com", newCard.getShortUrl());
     }
 
-//    @Test
-//    public void shouldReturnEmptyList(){
-//        //Given
-//        TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
-//        trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>());
-//
-//        URI uri = new URI("http://test.com/members/kasianka32/boards?key=test&token=test&fields=name,id&lists=all");
-//        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
-//        //When
-//        List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
-//        //Then
-//        System.out.println(fetchedTrelloBoards.size());
-//
-//        assertEquals(1, fetchedTrelloBoards.size());
-//        assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
-//        assertEquals("test_board", fetchedTrelloBoards.get(0).getName());
-//        assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
-//    }
+    @Test
+    public void shouldReturnEmptyList() throws URISyntaxException{
+        //Given
+        URI uri = new URI("http://test.com/members/kasianka32/boards?key=test&token=test&fields=name,id&lists=all");
+        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
+
+        //When
+        boolean emptyList = trelloClient.getTrelloBoards().isEmpty();
+
+        //Then
+        Assert.assertTrue(emptyList);
+    }
 }

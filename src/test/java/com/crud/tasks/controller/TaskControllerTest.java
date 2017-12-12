@@ -51,7 +51,7 @@ public class TaskControllerTest {
         when(service.getAllTasks()).thenReturn(tasks);
         when(taskMapper.mapToTaskDtoList(anyList())).thenReturn(tasksDto);
         //When&Then
-        mockMvc.perform(get("/v1/task/getTasks")
+        mockMvc.perform(get("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -68,7 +68,7 @@ public class TaskControllerTest {
         when(service.getTask(1L)).thenReturn(Optional.ofNullable(task1));
         when(taskMapper.mapToTaskDto(task1)).thenReturn(taskDto);
         //When&Then
-        mockMvc.perform(get("/v1/task/getTask")
+        mockMvc.perform(get("/v1/tasks/{}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("taskId", "1"))
                 .andExpect(status().isOk())
@@ -90,7 +90,7 @@ public class TaskControllerTest {
         String jsonContent = gson.toJson(taskDto);
 
         //When & Then
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -101,10 +101,10 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testdDeleteTask() throws Exception {
+    public void testDeleteTask() throws Exception {
         //Given
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask")
+        mockMvc.perform(delete("/v1/tasks/{}")
                         .param("taskId", "2"))
                 .andExpect(status().isOk());
     }
@@ -122,7 +122,7 @@ public class TaskControllerTest {
         String jsonContent = gson.toJson(taskDto);
 
         //When & Then
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
