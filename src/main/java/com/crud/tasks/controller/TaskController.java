@@ -24,7 +24,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
         }
 
         @RequestMapping(method = RequestMethod.GET, value = "/tasks/{taskId}")
-        public TaskDto getTask(@RequestParam  Long taskId) throws TaskNotFoundException {
+        public TaskDto getTask(@PathVariable Long taskId) throws TaskNotFoundException {
             return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
         }
         @RequestMapping(method = RequestMethod.POST, value = "tasks",consumes = APPLICATION_JSON_VALUE)
@@ -37,7 +37,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
             return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
         }
         @RequestMapping(method = RequestMethod.DELETE, value = "/tasks/{taskId}")
-        public void deleteTask(@RequestParam Long taskId)throws TaskNotFoundException {
+        public void deleteTask(@PathVariable Long taskId)throws TaskNotFoundException {
            service.deleteById(taskId);
         }
 }
